@@ -1,0 +1,21 @@
+<table class="table">
+<tr>
+  <th>Juhe ID</th>
+  <th>Province</th>
+  <th>City</th>
+  <th>District</th>
+  <th>Temp</th>
+</tr>
+<% @cities.each do |cc| %>
+  <tr>
+    <td><%= cc.juhe_id %></td>
+    <td><%= cc.province %></td>
+    <td><%= cc.city %></td>
+    <td><%= cc.district %></td>
+    <td><%= cc.current_temp %>
+        <%= link_to "更新温度", update_temp_city_path(cc), :method => :post %>
+    </td>
+
+  </tr>
+<% end %>
+</table>
