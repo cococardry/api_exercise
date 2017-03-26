@@ -14,4 +14,6 @@ namespace :dev do
 
     puts "Total: #{City.count} cities"
   end
+
+
 end

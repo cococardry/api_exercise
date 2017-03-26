@@ -5,8 +5,11 @@
   <th>City</th>
   <th>District</th>
   <th>Temp</th>
+  <th>Wind</th>
 </tr>
 <% @cities.each do |cc| %>
+<% if cc.city==nil then%>
+<%else%>
   <tr>
     <td><%= cc.juhe_id %></td>
     <td><%= cc.province %></td>
@@ -15,7 +18,11 @@
     <td><%= cc.current_temp %>
         <%= link_to "更新温度", update_temp_city_path(cc), :method => :post %>
     </td>
-
+    <td>
+      <%= cc.wind_direction %><%= cc.wind_strength %>
+      <%= link_to "更新风况", update_wind_city_path(cc), :method => :post %>
+    </td>
   </tr>
+<% end %>
 <% end %>
 </table>

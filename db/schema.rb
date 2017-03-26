@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 20170325043806) do
     t.string   "city"
     t.string   "district"
     t.string   "current_temp"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "wind_direction"
+    t.string   "wind_strength"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["juhe_id"], name: "index_cities_on_juhe_id"
   end
 

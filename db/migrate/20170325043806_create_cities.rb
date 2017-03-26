@@ -6,6 +6,8 @@ class CreateCities < ActiveRecord::Migration[5.0]
            t.string :city
            t.string :district
            t.string :current_temp
+           t.string :wind_direction
+           t.string :wind_strength
       t.timestamps
     end
     add_index :cities, :juhe_id

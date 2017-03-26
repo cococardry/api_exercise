@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :cities do
     member do
       post :update_temp
+      post :update_wind
     end
   end
   root 'cities#index'
