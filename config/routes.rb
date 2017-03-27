@@ -6,5 +6,6 @@ Rails.application.routes.draw do
       post :update_wind
     end
   end
-  root 'cities#index'
+  resources :currencies
+
 end

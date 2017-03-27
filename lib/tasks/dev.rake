@@ -15,5 +15,21 @@ namespace :dev do
     puts "Total: #{City.count} cities"
   end
 
+  task :fetch_currency => :environment do
+    puts "Fetch currency data..."
+    response = RestClient.get "http://op.juhe.cn/onebox/exchange/query", :params => { :key => JUHE_CONFIG["api_key_currency"] }
+    data = JSON.parse(response.body)
+
+    data["result"]["list"].each do |cr|
+      # binding.pry
+        Currency.create!(:currency_name => cr[0], :unit => cr[1], :spot_buying_rate => cr[2],
+                         :cash_buying_rate => cr[3], :cash_selling_rate => cr[4])
+
+
+    end
+
+    puts "Total: #{Currency.count} currencies"
+  end
+
 
 end

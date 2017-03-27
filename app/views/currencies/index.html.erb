@@ -1,0 +1,24 @@
+<table class="table">
+<tr>
+  <th>货币名称</th>
+  <th>交易单位</th>
+  <th>现汇买入价</th>
+  <th>现钞买入价</th>
+  <th>现钞卖出价</th>
+</tr>
+<% @currencies.each do |cr| %>
+  <tr  style="text-align:center;">
+    <td><%= cr.currency_name %></td>
+    <td><%= cr.unit %></td>
+    <td><%= cr.spot_buying_rate %></td>
+    <td><%= cr.cash_buying_rate %></td>
+    <td><%= cr.cash_selling_rate %></td>
+  </tr>
+<% end %>
+</table>
+<style>
+th{
+  text-align: center;
+}
+
+</style>
