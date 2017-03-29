@@ -38,6 +38,7 @@ gem 'rest-client'
 gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 gem 'pry'
+gem 'devise'
 
 
 

@@ -1,11 +1,29 @@
 class Api::V1::ReservationsController < ApiController
+    before_action :authenticate_user!, only: [:index] # 这会检查 index 这个操作一定要登入
+
+    def index
+        @reservations = current_user.reservations
+
+        render json: {
+            data: @reservations.map do |reservation|
+                {
+                    booking_code: reservation.booking_code,
+                    train_number: reservation.train.number,
+                    seat_number: reservation.seat_number,
+                    customer_name: reservation.customer_name,
+                    customer_phone: reservation.customer_phone
+                }
+            end
+        }
+    end
+
     def create
         @train = Train.find_by_number!(params[:train_number])
         @reservation = Reservation.new(train_id: @train.id,
                                        seat_number: params[:seat_number],
                                        customer_name: params[:customer_name],
                                        customer_phone: params[:customer_phone])
-
+        @reservation.user = current_user
         if @reservation.save
             render json: { booking_code: @reservation.booking_code,
                            reservation_url: api_v1_reservation_url(@reservation.booking_code) }
@@ -27,14 +45,14 @@ class Api::V1::ReservationsController < ApiController
     end
 
     def update
-        @reservation=Reservation.find_by_booking_code!(params[:booking_code])
-        @reservation.update(:customer_name=>params[:customer_name],:customer_phone=>[:customer_phone])
-        render json:{:message=>"更新成功"}
+        @reservation = Reservation.find_by_booking_code!(params[:booking_code])
+        @reservation.update(customer_name: params[:customer_name], customer_phone: [:customer_phone])
+        render json: { message: '更新成功' }
     end
 
     def destroy
-        @reservation=Reservation.find_by_booking_code!(params[:booking_code])
+        @reservation = Reservation.find_by_booking_code!(params[:booking_code])
         @reservation.destroy
-        render json:{:message=>"取消成功"}
+        render json: { message: '取消成功' }
     end
 end

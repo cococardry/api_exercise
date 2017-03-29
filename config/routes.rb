@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :cities do
     member do
@@ -9,6 +10,11 @@ Rails.application.routes.draw do
 resources :currencies
    namespace :api, :defaults => { :format => :json } do
    namespace :v1 do
+     post "/signup" => "auth#signup"
+     post "/login" => "auth#login"
+     post "/logout" => "auth#logout"
+     
+     get "/reservations" => "reservations#index", :as => :reservations
      get "/trains"  => "trains#index", :as => :trains
      get "/trains/:train_number" => "trains#show", :as => :train
 
@@ -18,4 +24,7 @@ resources :currencies
      delete "/reservations/:booking_code" => "reservations#destroy", :as => :cancel_reservation
    end
 end
+
+root "welcome#index"
+
 end
